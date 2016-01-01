@@ -1,0 +1,87 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view>
+  <ion-nav-title>
+    <h4>{{stack.name}}</h4>
+  </ion-nav-title>
+  <ion-content class="padding card">
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+    <h3>{{stack.name}}({{stack.symbol}})</h3>
+    <h2 ng-class="{'up':stack.price > stack.yestclose,'down':stack.price < stack.yestclose}">
+        {{stack.price|number:2}}{{stack.arrow}}
+    </h2>
+    <span ng-class="{'up2':stack.price > stack.yestclose,'down2':stack.price < stack.yestclose}">
+        &nbsp;&nbsp;{{stack.updown|number:2}}&nbsp;&nbsp;&nbsp;{{stack.percent*100|number:2}}%&nbsp;&nbsp;
+    </span>
+    <div class="content">
+        <div class="row">
+          <div class="col">
+            今开
+          </div>
+          <div class="col" ng-class="{'up':stack.open > stack.yestclose,'down':stack.open < stack.yestclose}">
+            {{stack.open|number:2}}
+          </div>
+          <div class="col">
+            最高
+          </div>
+          <div class="col" ng-class="{'up':stack.high > stack.yestclose,'down':stack.high < stack.yestclose}">
+            {{stack.high|number:2}}
+          </div>
+          <div class="col">
+            量(万)
+          </div>
+          <div class="col">
+            {{stack.volume/1000000|number:2}}
+          </div>
+        </div>
+       <div class="row">
+          <div class="col">
+            昨收
+          </div>
+          <div class="col">
+            {{stack.yestclose|number:2}}
+          </div>
+          <div class="col">
+            最低
+          </div>
+          <div class="col" ng-class="{'up':stack.low > stack.yestclose,'down':stack.low < stack.yestclose}">
+            {{stack.low|number:2}}
+          </div>
+          <div class="col">
+            额(亿)
+          </div>
+          <div class="col">
+            {{stack.turnover/100000000|number:2}}
+          </div>
+        </div>
+    </div>
+    <h3>最新交易</h3>
+    <hr/>
+    <div class="content">
+        <div class="row" ng-repeat="index in [1,2,3,4,5]">
+          <div class="col">
+            卖{{index}}
+          </div>
+          <div class="col" ng-class="{'up':stack['ask'+index] > stack.yestclose,'down':stack['ask'+index] < stack.yestclose}">
+            {{stack["ask"+index]|number:2}}
+          </div>
+          <div class="col" ng-class="{'up':stack['ask'+index] > stack.yestclose,'down':stack['ask'+index] < stack.yestclose}">
+            {{stack["askvol"+index]/100}}
+          </div>
+          <div class="col">
+            买{{index}}
+          </div>
+          <div class="col" ng-class="{'up':stack['bid'+index] > stack.yestclose,'down':stack['bid'+index] < stack.yestclose}">
+            {{stack["bid"+index]|number:2}}
+          </div>
+          <div class="col" ng-class="{'up':stack['bid'+index] > stack.yestclose,'down':stack['bid'+index] < stack.yestclose}">
+            {{stack["bidvol"+index]/100}}
+          </div>
+        </div>
+    </div>
+  </ion-content>
+</ion-view>

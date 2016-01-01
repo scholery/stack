@@ -1,0 +1,44 @@
+<ion-view view-title="Alarm">
+<ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+    <div class="list">
+      <!--<div class="item item-divider"> 
+        Settings
+      </div>-->
+      <div ng-repeat="stack in stacks|orderBy:'index'" ng-click="editStack(stack)">
+      <ion-toggle ng-model="stack.warning" 
+                  ng-checked="stack.warning" ng-change="updateStack(stack)">
+        <h2>{{ stack.name }}</h2>
+        <p>{{ stack.code }}</p>
+      </ion-toggle>
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
+<script id="edit-stack.html" type="text/ng-template">
+<div class="modal">
+  <!-- Modal header bar -->
+  <ion-header-bar class="bar-secondary">
+    <h1 class="title">Edit Stack</h1>
+    <button class="button button-clear button-positive" ng-click="closeEditStack()">Cancel</button>
+  </ion-header-bar>
+  <!-- Modal content area -->
+  <ion-content>
+    <form ng-submit="saveStack()">
+      <div class="list">
+        <label class="item item-input">
+          上限：
+          <input type="text" placeholder="请输入告警下限." ng-model="stack.lowWarning">
+        </label>
+        <label class="item item-input">
+          上限：
+          <input type="text" placeholder="请输入告警下限." ng-model="stack.hightWarning">
+        </label>
+      </div>
+      <div class="padding">
+        <button type="submit" class="button button-block button-positive">Save</button>
+      </div>
+    </form>
+  </ion-content>
+</div>
+</script>

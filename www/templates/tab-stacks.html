@@ -1,0 +1,85 @@
+<ion-view view-title="Stacks">
+  <ion-nav-buttons side="left">
+      <button class="button button-icon ion-ios-minus-outline" ng-click="showRemove()">
+      </button>
+  </ion-nav-buttons>
+  <ion-nav-buttons side="right">
+      <button class="button button-icon ion-ios-plus-outline" ng-click="newStack()">
+      </button>
+  </ion-nav-buttons>
+  <ion-content>
+    <ion-refresher pulling-text="下拉刷新" on-refresh="doRefresh()"></ion-refresher>
+    <div class="content">
+      <div class="row">
+        <div class="col">
+          <div class="col-demo"></div>
+        </div>
+        <div class="col">
+          <div class="col-demo">最新</div>
+        </div>
+        <div class="col">
+          <div class="col-demo">涨跌</div>
+        </div>
+        <div class="col">
+          <div class="col-demo">涨幅</div>
+        </div>
+        <!--<div class="col">
+          <div class="col-demo">今开/昨收</div>
+        </div>-->
+      </div>
+      <ion-list show-delete="showDelete" side="right">
+        <ion-item class="line" ng-repeat="stack in stacks|orderBy:'index'" href="#/tab/stacks/{{stack.code}}" on-drag="onDrag($event)"  on-release="onRelease($event)">
+            <div class="row">
+              <div class="col">
+                  <h2>
+                    {{stack.data.name}}
+                  </h2>
+                  <p>
+                    {{stack.data.symbol}}
+                  </p>
+              </div>
+              <div class="col">
+                {{stack.data.price|number:2}}
+              </div>
+              <div class="col" ng-class="{'up':stack.data.updown > 0,'down':stack.data.updown < 0}">
+                {{stack.data.updown|number:2}}
+              </div>
+              <div class="col" ng-class="{'up':stack.data.updown > 0,'down':stack.data.updown < 0}">
+                {{stack.data.percent * 100|number:2}}%
+              </div>
+              <!--<button class="button button-icon ion-minus" ng-show="showDelete" ng-click="remove(stack)">
+              </button>-->
+             <!-- <div class="col" ng-class="{'up':stack.data.open > stack.data.yestclose,'down':stack.data.open < stack.data.yestclose}">
+                {{stack.data.open|number:2}}/{{stack.data.yestclose|number:2}}
+              </div>-->
+            </div>
+            <ion-delete-button class="ion-minus-circled" ng-click="remove(stack)">
+            </ion-delete-button>
+        </ion-item>
+      </ion-list>
+    </div>
+  </ion-content>
+</ion-view>
+
+<script id="new-stack.html" type="text/ng-template">
+<div class="modal">
+  <!-- Modal header bar -->
+  <ion-header-bar class="bar-secondary">
+    <h1 class="title">Add Stack</h1>
+    <button class="button button-clear button-positive" ng-click="closeNewStack()">Cancel</button>
+  </ion-header-bar>
+  <!-- Modal content area -->
+  <ion-content>
+    <form ng-submit="addStack(stack)">
+      <div class="list">
+        <label class="item item-input">
+          <input type="text" placeholder="请输入股票代码，例如0600737." ng-model="stack.code" required="required" ngPattern="^0[0-9]{6}">
+        </label>
+      </div>
+      <div class="padding">
+        <button type="submit" class="button button-block button-positive">Add Stack</button>
+      </div>
+    </form>
+  </ion-content>
+</div>
+</script>

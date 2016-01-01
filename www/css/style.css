@@ -1,0 +1,22 @@
+/* Empty. Add your own CSS if you like */
+.up{
+    color: red;
+}
+.down{
+    color: green;
+}
+.up2{
+    color: white;
+    background: red;
+}
+.down2{
+    color: white;
+    background: green;
+}
+.line{
+    
+}
+.line a{
+    vertical-align : bottom;
+    padding:0px 16px 0px 16px !important;
+}
